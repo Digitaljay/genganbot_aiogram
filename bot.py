@@ -48,7 +48,7 @@ async def echo(message: types.Message):
     await message.answer("Идёт преобразование, это займёт около трёх-четырёх минут, пока встань и сделай зарядку!")
     content_img = "content" + str(message.chat.id) + '.jpg'
     style_img = "style" + str(message.chat.id) + '.jpg'
-    transformator = transformation.Transfer(256, style_img, content_img)
+    transformator = transformation.Transfer(160, style_img, content_img)
     transformator.prepare_images()
     transformator.transform("results/" + str(message.chat.id) + ".jpg")
     photo = open("results/" + str(message.chat.id) + ".jpg", 'rb')
