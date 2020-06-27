@@ -14,9 +14,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
+print("preparations are done now")
 @dp.message_handler(commands=['start','help'])
 async def echo(message: types.Message):
     await message.answer("help for u")
+    print("some help needed")
 
 @dp.message_handler(content_types=['photo'])
 async def echo(message: types.Message):
@@ -34,6 +36,7 @@ async def echo(message: types.Message):
         await message.answer('Saved!')
     else:
         await message.answer('Wrong caption')
+    print("photo was given")
 
 @dp.message_handler(commands=["transform"])
 async def echo(message: types.Message):
@@ -47,11 +50,12 @@ async def echo(message: types.Message):
     photo=open("results/"+str(message.chat.id)+".jpg",'rb')
     await message.answer_photo(photo,"Transformed specially for u!")
     photo.close()
-
+    print("trnsformation happened already!")
 
 @dp.message_handler()
 async def echo(message: types.Message):
     await message.answer("hey")
+    print("strange things happen")
 
 
 if __name__ == '__main__':
