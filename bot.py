@@ -43,7 +43,7 @@ async def echo(message: types.Message):
                 handle.write(block)
         image = transformation.Image.open(caption + str(message.chat.id) + '.jpg')
         image = loader(image)
-        image.save(caption + str(message.chat.id))
+        image.save(caption + str(message.chat.id)+'.jpg')
         await message.answer('Saved!')
     else:
         await message.answer('Wrong caption')
