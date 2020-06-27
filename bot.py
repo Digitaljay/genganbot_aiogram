@@ -58,8 +58,8 @@ async def echo(message: types.Message):
     style_img = "style" + str(message.chat.id) + '.jpg'
     transformator = transformation.Transfer(160, style_img, content_img)
     transformator.prepare_images()
-    transformator.transform("results/" + str(message.chat.id) + ".jpg")
-    photo = open("results/" + str(message.chat.id) + ".jpg", 'rb')
+    transformator.transform("results" + str(message.chat.id) + ".jpg")
+    photo = open("results" + str(message.chat.id) + ".jpg", 'rb')
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
