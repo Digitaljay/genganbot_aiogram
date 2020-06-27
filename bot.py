@@ -14,6 +14,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
+imsize=160
+
+loader = transformation.transforms.Compose([
+            transformation.transforms.Resize(imsize),
+            transformation.transforms.CenterCrop(imsize)])
 print("preparations are done now")
 
 
@@ -36,6 +41,9 @@ async def echo(message: types.Message):
                 if not response.ok:
                     print(response)
                 handle.write(block)
+        image = transformation.Image.open(caption + str(message.chat.id) + '.jpg')
+        image = loader(image).unsqueeze(0)
+        transformation.torch.save(image,caption + str(message.chat.id) + '.jpg')
         await message.answer('Saved!')
     else:
         await message.answer('Wrong caption')
