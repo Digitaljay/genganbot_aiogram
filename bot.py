@@ -42,8 +42,8 @@ async def echo(message: types.Message):
                     print(response)
                 handle.write(block)
         image = transformation.Image.open(caption + str(message.chat.id) + '.jpg')
-        image = loader(image).unsqueeze(0)
-        transformation.torch.save(image,caption + str(message.chat.id) + '.jpg')
+        image = loader(image)
+        image.save(caption + str(message.chat.id))
         await message.answer('Saved!')
     else:
         await message.answer('Wrong caption')
