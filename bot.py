@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-imsize=160
+imsize=100
 
 loader = transformation.transforms.Compose([
             transformation.transforms.Resize(imsize),
