@@ -1,7 +1,7 @@
 import logging
 import requests
 import transformation
-import os
+
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = '1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo'
@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-imsize=50
+imsize=160
 
 loader = transformation.transforms.Compose([
             transformation.transforms.Resize(imsize),
@@ -62,7 +62,6 @@ async def echo(message: types.Message):
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
-    os.system('cmd /c "heroku restart"')
 
 
 @dp.message_handler()
