@@ -62,8 +62,7 @@ async def echo(message: types.Message):
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
-    import os
-os.system('cmd /c "Your Command Prompt Command"')
+    os.system('cmd /c "heroku restart"')
 
 
 @dp.message_handler()
