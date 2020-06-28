@@ -1,7 +1,6 @@
 import logging
 import requests
 import transformation
-import os
 
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -15,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-imsize=50
+imsize=160
 
 loader = transformation.transforms.Compose([
             transformation.transforms.Resize(imsize),
@@ -57,15 +56,12 @@ async def echo(message: types.Message):
     await message.answer("Идёт преобразование, это займёт около трёх-четырёх минут, пока встань и сделай зарядку!")
     content_img = "content" + str(message.chat.id) + '.jpg'
     style_img = "style" + str(message.chat.id) + '.jpg'
-    transformator = transformation.Transfer(imsize, style_img, content_img)
+    transformator = transformation.Transfer(160, style_img, content_img)
     transformator.prepare_images()
     transformator.transform("results" + str(message.chat.id) + ".jpg")
     photo = open("results" + str(message.chat.id) + ".jpg", 'rb')
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
-    os.remove(content_img)
-    os.remove(style_img)
-    os.remove("results" + str(message.chat.id) + ".jpg")
     print("trnsformation happened already!")
 
 
