@@ -1,6 +1,7 @@
 import logging
 import requests
 import transformation
+import os
 
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -62,6 +63,9 @@ async def echo(message: types.Message):
     photo = open("results" + str(message.chat.id) + ".jpg", 'rb')
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
+    os.remove(content_img)
+    os.remove(style_img)
+    os.remove("results" + str(message.chat.id) + ".jpg")
     print("trnsformation happened already!")
 
 
