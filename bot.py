@@ -1,6 +1,7 @@
 import logging
 import requests
 import transformation
+import time
 
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -63,6 +64,7 @@ async def echo(message: types.Message):
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
+    time.sleep(10)
 
 
 @dp.message_handler()
