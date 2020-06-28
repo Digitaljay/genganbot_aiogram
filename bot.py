@@ -1,7 +1,7 @@
 import logging
 import requests
 import transformation
-
+import os
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = '1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo'
@@ -53,7 +53,6 @@ async def echo(message: types.Message):
 @dp.message_handler(commands=["transform"])
 async def echo(message: types.Message):
     print("trying to transform")
-    # await message.answer("Идёт преобразование, это займёт около трёх-четырёх минут, пока встань и сделай зарядку!")
     content_img = "content" + str(message.chat.id) + '.jpg'
     style_img = "style" + str(message.chat.id) + '.jpg'
     transformator = transformation.Transfer(160, style_img, content_img)
@@ -63,7 +62,8 @@ async def echo(message: types.Message):
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
-
+    import os
+os.system('cmd /c "Your Command Prompt Command"')
 
 
 @dp.message_handler()
