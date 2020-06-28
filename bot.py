@@ -14,11 +14,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-imsize=160
+imsize = 256
 
 loader = transformation.transforms.Compose([
-            transformation.transforms.Resize(imsize),
-            transformation.transforms.CenterCrop(imsize)])
+    transformation.transforms.Resize(imsize),
+    transformation.transforms.CenterCrop(imsize)])
 print("preparations are done now")
 
 
@@ -35,7 +35,7 @@ async def echo(message: types.Message):
     picture_path = "https://api.telegram.org/file/bot1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo/" + get_path
     caption = message.caption.lower()
     if caption in ['content', 'style']:
-        with open(caption + str(message.chat.id) + '.jpg', 'wb') as handle:
+        with open(caption + "/" + str(message.chat.id) + '.jpg', 'wb') as handle:
             response = requests.get(picture_path, stream=True)
             for block in response.iter_content(1024):
                 if not response.ok:
@@ -43,7 +43,7 @@ async def echo(message: types.Message):
                 handle.write(block)
         image = transformation.Image.open(caption + str(message.chat.id) + '.jpg')
         image = loader(image)
-        image.save(caption + str(message.chat.id)+'.jpg')
+        image.save(caption + str(message.chat.id) + '.jpg')
         await message.answer('Saved!')
     else:
         await message.answer('Wrong caption')
@@ -53,12 +53,12 @@ async def echo(message: types.Message):
 @dp.message_handler(commands=["transform"])
 async def echo(message: types.Message):
     print("trying to transform")
-    content_img = "content" + str(message.chat.id) + '.jpg'
-    style_img = "style" + str(message.chat.id) + '.jpg'
-    transformator = transformation.Transfer(160, style_img, content_img)
+    content_img = "content/" + str(message.chat.id) + '.jpg'
+    style_img = "style/" + str(message.chat.id) + '.jpg'
+    transformator = transformation.Transfer(imsize, style_img, content_img)
     transformator.prepare_images()
     transformator.transform("results" + str(message.chat.id) + ".jpg")
-    photo = open("results" + str(message.chat.id) + ".jpg", 'rb')
+    photo = open("results/" + str(message.chat.id) + ".jpg", 'rb')
     await message.answer_photo(photo, "Transformed specially for u!")
     photo.close()
     print("trnsformation happened already!")
