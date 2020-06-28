@@ -53,7 +53,7 @@ async def echo(message: types.Message):
 @dp.message_handler(commands=["transform"])
 async def echo(message: types.Message):
     print("trying to transform")
-    await message.answer("Идёт преобразование, это займёт около трёх-четырёх минут, пока встань и сделай зарядку!")
+    # await message.answer("Идёт преобразование, это займёт около трёх-четырёх минут, пока встань и сделай зарядку!")
     content_img = "content" + str(message.chat.id) + '.jpg'
     style_img = "style" + str(message.chat.id) + '.jpg'
     transformator = transformation.Transfer(160, style_img, content_img)
