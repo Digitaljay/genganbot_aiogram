@@ -63,13 +63,13 @@ async def photo_given(message: types.Message):
                                   'тебе придётся ждать. Так, картинка в 256 пикселей расчитывается где-то 3 мин, а в 512 - уже целых 12.'
                                  'Ну что, начинаем? (ну давай, отправь уже "/transform")')
     else:
-        await message.answer('Wrong caption')
+        await message.answer('Ой, в картинка должна быть подписана как "content" или "style"')
     print("photo was given")
 
 
 @dp.message_handler(commands=["transform"])
 async def transformation_ask(message: types.Message):
-    print("trying to transform")
+    print("Итак, я пока преобразую картинку, а ты на это время отодвинь телефон/компьютер и сделай зарядку!")
     try:
         imsize=int(message.text.split()[1])
     except:
@@ -80,7 +80,7 @@ async def transformation_ask(message: types.Message):
     transformator.prepare_images()
     transformator.transform("results/" + str(message.chat.id) + ".jpg")
     photo = open("results/" + str(message.chat.id) + ".jpg", 'rb')
-    await message.answer_photo(photo, "Transformed specially for u!")
+    await message.answer_photo(photo, "Та-да!")
     photo.close()
     print("transformation happened already!")
 
