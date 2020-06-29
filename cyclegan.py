@@ -4,23 +4,19 @@ import torchvision.transforms as transforms
 from torch.autograd import Variable
 import torchvision
 
-imsize = 256
 
-loader = transforms.Compose([
-    transforms.Resize(imsize),  # нормируем размер изображения
-    transforms.CenterCrop(imsize),
-    transforms.ToTensor()])  # превращаем в удобный формат
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-def image_loader(image_name):
+def image_loader(image_name,imsize,device):
+    loader = transforms.Compose([
+            transforms.Resize(imsize),  # нормируем размер изображения
+            transforms.CenterCrop(imsize),
+            transforms.ToTensor()])  # превращаем в удобный формат
     image = Image.open(image_name)
     image = loader(image).unsqueeze(0)
     return image.to(device, torch.float)
 
-unloader = transforms.ToPILImage() # тензор в кратинку
+
 
 from torch.utils.data import DataLoader
-batch_size = 25
 
 from torch import nn
 import torch
@@ -82,24 +78,26 @@ class UnetGenerator(nn.Module):
         return d3
 import numpy as np
 class Gan():
-    def __init__(self,img_given,img_res):
-        genA = UnetGenerator()
+    def __init__(self,img_given,img_res,imsize):
+        self.img_given=img_given
+        self.img_res=img_res
+        self.imsize = imsize
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    def paint(self):
         genB = UnetGenerator()
+        genB.load_state_dict(torch.load("gog_genB20.pth"))
 
-        genA.load_state_dict(torch.load("path_to\\model_wights.pth"))
-        genB.load_state_dict(torch.load("path_to\\model_wights.pth"))
-
-        photo=[image_loader(img_given),image_loader(img_given)]
+        photo=[image_loader(self.img_given,self.imsize,self.device)]
         photo_loader = DataLoader(photo, batch_size=1)
         a_real_test = Variable(iter(photo_loader).next()[0], requires_grad=True)
-        a_real_test = a_real_test.to(device)
+        a_real_test = a_real_test.to(self.device)
 
-        genA.eval()
         genB.eval()
 
         with torch.no_grad():
             b_fake_test = genB(a_real_test)
         pic = b_fake_test.data
         print("got it")
-        torchvision.utils.save_image(pic, img_res)
-        print("saved as ",img_res)
+        torchvision.utils.save_image(pic, self.img_res)
+        print("saved as ",self.img_res)
+        return self.img_res

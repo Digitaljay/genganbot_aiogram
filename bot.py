@@ -1,6 +1,7 @@
 import logging
 import requests
 import transformation
+import cyclegan
 
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -31,7 +32,7 @@ async def photo_given(message: types.Message):
     get_path = requests.get(url + "getFile?file_id=" + photo_index).json()['result']['file_path']
     picture_path = "https://api.telegram.org/file/bot1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo/" + get_path
     caption = message.caption.lower()
-    if caption in ['content', 'style']:
+    if caption in ['content', 'style','vangogh']:
         with open(caption + "/" + str(message.chat.id) + '.jpg', 'wb') as handle:
             response = requests.get(picture_path, stream=True)
             for block in response.iter_content(1024):
@@ -63,7 +64,7 @@ async def photo_given(message: types.Message):
                                   'тебе придётся ждать. Так, картинка в 256 пикселей расчитывается где-то 3 мин, а в 512 - уже целых 12.'
                                  'Ну что, начинаем? (ну давай, отправь уже "/transform")')
     else:
-        await message.answer('Ой, в картинка должна быть подписана как "content" или "style"')
+        await message.answer('Ой, в картинка должна быть подписана как "content", "style" или "vangogh"')
     print("photo was given")
 
 @dp.message_handler(content_types=['document'])
@@ -72,7 +73,7 @@ async def photo_given(message: types.Message):
     get_path = requests.get(url + "getFile?file_id=" + photo_index).json()['result']['file_path']
     picture_path = "https://api.telegram.org/file/bot1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo/" + get_path
     caption = message.caption.lower()
-    if caption in ['content', 'style']:
+    if caption in ['content', 'style','vangogh']:
         with open(caption + "/" + str(message.chat.id) + '.jpg', 'wb') as handle:
             response = requests.get(picture_path, stream=True)
             for block in response.iter_content(1024):
@@ -104,7 +105,7 @@ async def photo_given(message: types.Message):
                                   'тебе придётся ждать. Так, картинка в 256 пикселей расчитывается где-то 3 мин, а в 512 - уже целых 12.'
                                  'Ну что, начинаем? (ну давай, отправь уже "/transform")')
     else:
-        await message.answer('Ой, в картинка должна быть подписана как "content" или "style"')
+        await message.answer('Ой, в картинка должна быть подписана как "content", "style" или "vangogh"')
     print("photo was given")
 
 
@@ -124,6 +125,19 @@ async def transformation_ask(message: types.Message):
     await message.answer_photo(photo, "Та-да!")
     photo.close()
     print("transformation happened already!")
+
+@dp.message_handler(commands=["gan"])
+async def gan_ask(message: types.Message):
+    await message.answer("Итак, я пока преобразую картинку, а ты на это время отодвинь телефон/компьютер и сделай зарядку!")
+    try:
+        imsize=int(message.text.split()[1])
+    except:
+        imsize = 1024
+    gan=cyclegan.Gan("vangogh/" + str(message.chat.id) + '.jpg',"gan/" + str(message.chat.id) + ".jpg",imsize)
+    ganed=open(gan.paint(), "rb")
+    await message.answer_photo(ganed, "Если бы это фото было нарисовано Ван Гогом...")
+    ganed.close()
+    print("ganed")
 
 
 @dp.message_handler()
