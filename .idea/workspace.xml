@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d93cad70-5836-4346-916e-2705e827f8ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/blocked_gog_genB20.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cyclegan.py" beforeDir="false" afterPath="$PROJECT_DIR$/cyclegan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gan/484276606.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/gan/484276606.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vangogh/484276606.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/vangogh/484276606.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="134" column="21" selection-start-line="134" selection-start-column="21" selection-end-line="134" selection-end-column="21" />
+            <state relative-caret-position="228">
+              <caret line="183" column="99" selection-start-line="183" selection-start-column="99" selection-end-line="183" selection-end-column="99" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -208,7 +207,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.030031612" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -284,8 +283,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="134" column="21" selection-start-line="134" selection-start-column="21" selection-end-line="134" selection-end-column="21" />
+        <state relative-caret-position="228">
+          <caret line="183" column="99" selection-start-line="183" selection-start-column="99" selection-end-line="183" selection-end-column="99" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
