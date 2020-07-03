@@ -6,6 +6,7 @@ import cyclegan
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = 'your token here'
+
 token=API_TOKEN
 url = "https://api.telegram.org/bot" + API_TOKEN + "/"
 
@@ -32,17 +33,23 @@ async def help_needed(message: types.Message):
                          "Сеть была написана моим создателем, поэтому результаты далеки от идеальных в силу слабого железа. Чтобы опробовать этот режим - "
                          "отправь мне картинку с подписью 'vangogh' (преобразуем мы именно её). Потом отправь команду '/gan' и подожди некоторое время.\n\n"
                          "P.S.: Даже ботам иногда нужен отдых, иначе восстание машин неминуемо. Я работаю "
-                         "на собственном сервере моего создателя, поэтому иногда мне нужен перерыв. Но с 7:00 МСК "
-                         "до 22:00 МСК я всегда готов вам помочь!")
+                         "на собственном сервере моего создателя, поэтому иногда мне нужен перерыв. Но с 8:00 МСК "
+                         "до 20:00 МСК я всегда готов вам помочь!")
     print("some help needed")
-    await message.answer_photo()
+    vangogh = open("examples/vangogh.jpg", "rb")
+    style1 = open("examples/stylet1.jpg","rb")
+    style2 = open("examples/stylet2.jpg","rb")
+    await message.answer_photo(vangogh,"Пример того, как я работаю. Вот это - фото в стиле эскизных набросоков Ван Гога")
+    await message.answer_photo(style1, "А это - перенос стиля: в данном случае - Ван Гога")
+    await message.answer_photo(style2, "А здесь - перенос стиля потрясающей художницы из Питера, Зелёной Лампочки")
+
 
 
 @dp.message_handler(content_types=['photo'])
 async def photo_given(message: types.Message):
     photo_index = message.photo[0].file_id
     get_path = requests.get(url + "getFile?file_id=" + photo_index).json()['result']['file_path']
-    picture_path = "https://api.telegram.org/file/bot1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo/" + get_path
+    picture_path = "https://api.telegram.org/file/bot"+token+"/" + get_path
     caption = message.caption.lower()
     if caption in ['content', 'style', 'vangogh']:
         with open(caption + "/" + str(message.chat.id) + '.jpg', 'wb') as handle:
