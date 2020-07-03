@@ -18,9 +18,15 @@ P.S.: Даже ботам иногда нужен отдых, иначе вос�
 Примеры общения с ботом:\n
 
 ![](screenshots/1.jpg "") 
+
 ![](screenshots/2.jpg "")
+
 ![](screenshots/3.jpg "")
+
 ![](screenshots/4.jpg "")
+
 ![](screenshots/5.jpg "")
+
 ![](screenshots/6.jpg "")
+
 ![](screenshots/7.jpg "")
