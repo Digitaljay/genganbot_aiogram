@@ -5,7 +5,7 @@ import cyclegan
 
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = '1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo'
+API_TOKEN = 'your token here'
 url = "https://api.telegram.org/bot" + API_TOKEN + "/"
 
 logging.basicConfig(level=logging.INFO)
