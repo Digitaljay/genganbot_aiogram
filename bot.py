@@ -6,6 +6,7 @@ import cyclegan
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = 'your token here'
+token=API_TOKEN
 url = "https://api.telegram.org/bot" + API_TOKEN + "/"
 
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +35,7 @@ async def help_needed(message: types.Message):
                          "на собственном сервере моего создателя, поэтому иногда мне нужен перерыв. Но с 7:00 МСК "
                          "до 22:00 МСК я всегда готов вам помочь!")
     print("some help needed")
+    await message.answer_photo()
 
 
 @dp.message_handler(content_types=['photo'])
@@ -95,7 +97,7 @@ async def photo_given(message: types.Message):
 async def photo_given(message: types.Message):
     photo_index = message.document.file_id
     get_path = requests.get(url + "getFile?file_id=" + photo_index).json()['result']['file_path']
-    picture_path = "https://api.telegram.org/file/bot1233264025:AAHEMen7FR6yhRZiVv1gi91z3COoEmQAOHo/" + get_path
+    picture_path = "https://api.telegram.org/file/bot"+token+"/" + get_path
     caption = message.caption.lower()
     if caption in ['content', 'style', 'vangogh']:
         with open(caption + "/" + str(message.chat.id) + '.jpg', 'wb') as handle:
